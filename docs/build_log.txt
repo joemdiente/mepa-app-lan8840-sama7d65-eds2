@@ -1,0 +1,63 @@
+#
+#
+# Expected output when adding buildroot SDK.
+#
+#
+
+test@test:~/mepa-app-lan8840-sama7d65-eds2/build$ cmake ../mepa_app_sanity_check_standalone_lan884x/ -DCMAKE_TOOLCHAIN_FILE=$(find /opt/mchp/arm-buildroot-linux-gnueabihf_sdk-buildroot -name "toolchainfile.cmake")
+-- The C compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /opt/mchp/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Found PkgConfig: /opt/mchp/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/pkg-config (found version "2.3.0") 
+-- Checking for module 'libmnl'
+--   Found libmnl, version 1.0.5
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /opt/mchp/arm-buildroot-linux-gnueabihf_sdk-buildroot/bin/arm-buildroot-linux-gnueabihf-g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Build mepa including mepa_drv_lan884x;mepa_drv_vtss_custom
+-- Looking for include file endian.h
+-- Looking for include file endian.h - found
+-- Looking for include file asm/byteorder.h
+-- Looking for include file asm/byteorder.h - found
+-- Excluding file: /home/test/mepa-app-lan8840-sama7d65-eds2/mepa_app_sanity_check_standalone_lan884x/mepa/microchip/lan80xx/src/lan80xx_serdes_config.h
+-- Excluding file: /home/test/mepa-app-lan8840-sama7d65-eds2/mepa_app_sanity_check_standalone_lan884x/mepa/microchip/lan80xx/src/sha256/platform_util.h
+-- Excluding file: /home/test/mepa-app-lan8840-sama7d65-eds2/mepa_app_sanity_check_standalone_lan884x/mepa/microchip/lan80xx/src/sha256/sha256.c
+-- Excluding file: /home/test/mepa-app-lan8840-sama7d65-eds2/mepa_app_sanity_check_standalone_lan884x/mepa/microchip/lan80xx/src/sha256/sha256.h
+-- Excluding file: /home/test/mepa-app-lan8840-sama7d65-eds2/mepa_app_sanity_check_standalone_lan884x/mepa/microchip/lan80xx/src/sha256/sha256_config.h
+-- Configuring done (0.8s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/test/mepa-app-lan8840-sama7d65-eds2/build
+test@test:~/mepa-app-lan8840-sama7d65-eds2/build$ 
+
+#
+#
+# Expected output when adding yocto SDK.
+#
+#
+test@test:~/mepa-app-lan8840-sama7d65-eds2/build$ cmake ../mepa_app_sanity_check_standalone_lan884x/ -DCMAKE_TOOLCHAIN_FILE=$(find /opt/mchp/yocto-sdk-sama7 -name "*-toolchain.cmake")
+-- The C compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /opt/mchp/yocto-sdk-sama7/sysroots/x86_64-oesdk-linux/usr/share/cmake/../../../../../sysroots/x86_64-oesdk-linux/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Found PkgConfig: /opt/mchp/yocto-sdk-sama7/sysroots/x86_64-oesdk-linux/usr/share/cmake/../../../../../sysroots/x86_64-oesdk-linux/usr/bin/pkg-config (found version "0.29.2") 
+-- Checking for module 'libmnl'
+--   No package 'libmnl' found
+CMake Error at /usr/share/cmake-3.28/Modules/FindPkgConfig.cmake:619 (message):
+  The following required packages were not found:
+
+   - libmnl
+
+Call Stack (most recent call first):
+  /usr/share/cmake-3.28/Modules/FindPkgConfig.cmake:841 (_pkg_check_modules_internal)
+  CMakeLists.txt:55 (pkg_check_modules)
+
+
+-- Configuring incomplete, errors occurred!
