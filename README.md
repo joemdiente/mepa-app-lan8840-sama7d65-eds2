@@ -18,6 +18,8 @@
 
 ## Test Setup
 - LAN8840 PHY Daughterboard connected to SAMA7D65 Curiosity Kit EDS2 Connector.
+- Make sure that `mdio-netlink` kernel module (part of wkz/mdio-tools) is installed in target platform.
+    - In buildroot, it can be added in buildroot configuration. Or mdio-netlink can be built natively. (https://github.com/wkz/mdio-tools/tree/master/kernel)
 - Make sure device tree overlay is added in BSP as follows.
 ````
 &gmac1 {
@@ -61,21 +63,21 @@
 3. **[Optional]** Download cross toolchain or skip this step if building natively.
     - Linux4Microchip cross toolchains (https://developerhelp.microchip.com/xwiki/bin/view/applications/linux4sam/components/softwaretools/)
     - **Buildroot SDK - 2025.02 (Linux4SAM 2025.04) - SAMA7**
-        - Download SDK
+        1. Download SDK
             - `$ wget https://ww1.microchip.com/downloads/aemdocuments/documents/mpu32-direct/pub/demo/linux4sam-2025.04/linux4sam-buildroot-Cortex-A7-sdk-2025.04.tar.gz` 
-        - Extract somewhere. Make sure extract dir only has user rights. Example here is /opt/mchp/.
+        2. Extract somewhere. Make sure extract dir only has user rights. Example here is /opt/mchp/.
             - `$ tar -xvf ./linux4sam-buildroot-Cortex-A7-sdk-2025.04.tar.gz -C /opt/mchp/`
-        - Relocate SDK. Root rights NOT required.
+        3. Relocate SDK. Root rights NOT required.
             - `$ /opt/mchp/arm-buildroot-linux-gnueabihf_sdk-buildroot/relocate-sdk.sh`
-    - **Yocto Project 5.0.4 - scarthgap (Linux4Microchip 2025.04) - SAMA7** *(`NOT WORKING`, See notes below)*
-        - Download SDK
+    - **Yocto Project 5.0.4 - scarthgap (Linux4Microchip 2025.04) - SAMA7** *(`NOT WORKING`, See notes in build instructions for yocto)*
+        1. Download SDK
             - `$ wget https://ww1.microchip.com/downloads/aemdocuments/documents/mpu32-direct/pub/demo/yocto-sdk/linux4sam-oecore-Cortex-A7-sdk-2025.04.sh`
-        - Create folder somewhere to install yocto SDK toolchain. Example here is /opt/mchp/yocto-sdk-sama7/
+        2. Create folder somewhere to install yocto SDK toolchain. Example here is /opt/mchp/yocto-sdk-sama7/
             - `$ mkdir /opt/mchp/yocto-sdk-sama7/`
-        - Give execute command and run .sh.
+        3. Give execute command and run .sh.
             - `$ chmod 775 ./linux4sam-oecore-Cortex-A7-sdk-2025.04.sh`
             - `$ ./linux4sam-oecore-Cortex-A7-sdk-2025.04.sh`
-        - Make sure to set your install directory.
+        4. Make sure to set your install directory.
             ```
             Enter target directory for SDK (default: /usr/local/oecore-x86_64): /opt/mchp/yocto-sdk-sama7/
             You are about to install the SDK to "/opt/mchp/yocto-sdk-sama7". Proceed [Y/n]? Y
@@ -91,7 +93,7 @@
         - `$ cmake ../mepa_app_sanity_check_standalone_lan884x/ -DCMAKE_TOOLCHAIN_FILE=$(find /opt/mchp/arm-buildroot-linux-gnueabihf_sdk-buildroot -name "toolchainfile.cmake")`
         - Note: `find` command is used to easily find toolchainfile.cmake.
     - If using Yocto SDK:
-        - `$ cmake ../mepa_app_sanity_check_standalone_lan884x/ -DCMAKE_TOOLCHAIN_FILE=$(find /opt/mchp/arm-buildroot-linux-gnueabihf_sdk-buildroot -name "toolchainfile.cmake")`
+        - `$ cmake ../mepa_app_sanity_check_standalone_lan884x/ -DCMAKE_TOOLCHAIN_FILE=$(find /opt/mchp/yocto-sdk-sama7 -name "*-toolchain.cmake")`
         - **Note:** This will fail since this app requires `libmnl` which is not part of Yocto SDK. Command was provided in case user has built their custom yocto SDK.
 3. Run `$ make`
 
