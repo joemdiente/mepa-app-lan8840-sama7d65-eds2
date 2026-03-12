@@ -5,7 +5,6 @@
  * Copyright (C) 2026 Microchip Technology Inc.
  *
  * Author: Joemel John A. Diente <JoemelJohn.Diente@microchip.com>
- * For support, please reach out to microchip.com/support.
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the Free
@@ -18,10 +17,10 @@
  * more details.
  *
  * You should have received a copy of the GNU General Public License along
- * with this program; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * with this program; If not, see <https://www.gnu.org/licenses/>.
  *
  */
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -113,10 +112,6 @@ int main(int argc, char* argv[]) {
                 }
             }
         }
-        else if (strcmp(argv[1],"-t") == 0) {
-            test_mode = 1;
-            printf("Running IO Test\r\n");
-        }
     }
 
     if (argc < 1) {
@@ -133,7 +128,6 @@ int main(int argc, char* argv[]) {
 
     if (test_mode == 1) {
         mdio_test_code(); 
-        exit(EXIT_SUCCESS);
     }
 
     /* MEPA Initialization
@@ -220,6 +214,13 @@ int main(int argc, char* argv[]) {
     // PHY Configuration
     conf.speed = MEPA_SPEED_AUTO; // Auto-negotiation.
     conf.admin.enable = 1; // Enable port. This is required for link to come up.
+    // Advertise these speeds.
+    conf.aneg.speed_1g_fdx = true;
+    conf.aneg.speed_1g_hdx = true;
+    conf.aneg.speed_100m_fdx = true;
+    conf.aneg.speed_100m_hdx = true;
+    conf.aneg.speed_10m_fdx = true;
+    conf.aneg.speed_10m_hdx = true;
 
     if (mepa_conf_set(inst.phy, &conf) == 0) {
         printf(" PHY configuration success.\r\n");
